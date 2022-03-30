@@ -12,8 +12,8 @@ router.get('/:id', [checkJWT,checkUser], UserController.getByOneId);
 router.post('/', UserController.addNew);
 
 // User Wallet
-router.post('/transferFund', [checkJWT], WalletController​​.transferFund);
-router.post('/fundWallet',[checkJWT], WalletController​​.fundUserWallet);
-router.patch('/withdrawFund',[checkJWT], WalletController​​.fundWithdrawal);
+router.post('/transferFund', [checkJWT], WalletController.transferFund);
+router.post('/fundWallet',[checkJWT], WalletController.fundUserWallet);
+router.patch('/withdrawFund',[checkJWT], WalletController.fundWithdrawal);
 
 export default router;

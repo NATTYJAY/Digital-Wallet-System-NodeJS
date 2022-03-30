@@ -34,16 +34,17 @@ export class WalletService {
                     .where("user_id = :user_id", { user_id: logInUserId })
                     .getOne();
                     if(!userDebitedWallet){
-                        return Promise.reject(new APIError('Auth does not have a wallet', Err.ValidationFailed));
+                        return Promise.reject(new APIError('Auth user does not have a wallet', Err.ValidationFailed));
+                    }
+                    userWallet = await walletRepository.createQueryBuilder("wallet")
+                    .where("user_id = :user_id", { user_id: userId })
+                    .getOne();
+                        // If existing user does not have a wallet 
+                    if(!userWallet){
+                            return Promise.reject(new APIError('No wallet created for this user', Err.ValidationFailed));
                     }
                     if(userDebitedWallet.amount > amount){
-                        userWallet = await walletRepository.createQueryBuilder("wallet")
-                        .where("user_id = :user_id", { user_id: userId })
-                        .getOne();
-                        // If existing user does not have a wallet 
-                        if(!userWallet){
-                            return Promise.reject(new APIError('No wallet created for this user', Err.ValidationFailed));
-                        }
+                        
                         // Update the exisiting wallet for the requested user;
                         const creditedAmount = userWallet.amount + amount;
                         const debitedAmount = userDebitedWallet.amount - amount;
