@@ -52,17 +52,19 @@ export class UserService implements IUserRepository {
             return Promise.reject(new APIError('User Already exists', Err.EmailAlreadyExists));
         }
     }
-    async delete(id: number): Promise<UserEntity | null> {
+    async delete(id: number){
         const userRepository = getRepository(UserEntity);
         let user: UserEntity;
         try {
             user = await userRepository.findOneOrFail(id);
-            if (user) {
-                userRepository.delete(id);
-            }
-            return null;
+            return await userRepository
+                    .createQueryBuilder()
+                    .delete()
+                    .from(UserEntity)
+                    .where("id = :id", { id: id })
+                    .execute();
         } catch (error) {
-            return null;
+            return Promise.reject(error);
         }
     }
 

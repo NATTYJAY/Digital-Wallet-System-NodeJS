@@ -19,10 +19,6 @@ class UserController {
     })
   }
 
-  public static testUser = (req: Request, res: Response, next: any) => {
-    res.send(req.headers);
-  }
-
   public static getByOneId = (req: Request, res: Response, next: any) => {
     const id: number = +req.params.id;
     service.getById(id).then(users => {
@@ -48,6 +44,19 @@ class UserController {
       next(new ServerException('error occured'));
     })
   }
+
+  public static delete = (req: Request, res: Response, next: any) => {
+    const id: number = +req.params.id;
+    service.delete(id).then(user => {
+      if (user) {
+        res.json(Template.success(1, 'User deleted succesfully'));
+      }
+    }).catch(err => {
+      next(err);
+    })
+  }
+
+  
 }
 
 export default UserController;

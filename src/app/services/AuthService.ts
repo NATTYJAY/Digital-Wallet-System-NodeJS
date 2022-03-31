@@ -6,7 +6,7 @@ import APIError from "../global/response/apierror";
 import Err from "../global/response/errorcode";
 import * as jwt from 'jsonwebtoken';
 
-export class AuthService​​ implements IAuthInterface{
+export class AuthService implements IAuthInterface{
 
     async login(model:IUserInterface){
         const { username, password } = model;
@@ -28,7 +28,7 @@ export class AuthService​​ implements IAuthInterface{
         }
          // //Check if encrypted password match
         if (!user?.checkIfUnencryptedPasswordIsValid(password)) {
-            return Promise.reject(new APIError('User Not Found', Err.UserNotFound));
+            return Promise.reject(new APIError('Invalid Credentials', Err.InvalidCredentials));
         }
         //Sing JWT, valid for 1 hour
         const token = jwt.sign({ userId: user.id, username: user.username }, 'configjwtSecret', {

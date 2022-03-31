@@ -1,4 +1,4 @@
-# Node JS with TypeORM 
+# Node JS Digital wallet system with TypeORM 
 
 This is a wallet authentication application system that is built with [NodeJs + Express + Typescript + TypeORM + Docker ]
 
@@ -26,6 +26,8 @@ DB_CHARSET=utf8mb4
 DB_COLLATE=utf8mb4_unicode_ci
 LOG_LEVEL=info
 ```
+## Node JS digital wallet system postMan documentation link
+https://documenter.getpostman.com/view/14281663/UVyq1xXp
 
 ## Start Application using NPM (Nodemon)
 

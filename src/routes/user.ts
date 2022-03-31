@@ -9,11 +9,7 @@ const router = Router();
 // users
 router.get('/', UserController.listAll);
 router.get('/:id', [checkJWT,checkUser], UserController.getByOneId);
-router.post('/', UserController.addNew);
-
-// User Wallet
-router.post('/transferFund', [checkJWT], WalletController.transferFund);
-router.post('/fundWallet',[checkJWT], WalletController.fundUserWallet);
-router.patch('/withdrawFund',[checkJWT], WalletController.fundWithdrawal);
+router.delete('/:id', [checkJWT,checkUser],UserController.delete);
+router.post('/register', UserController.addNew);
 
 export default router;
